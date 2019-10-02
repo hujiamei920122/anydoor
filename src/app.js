@@ -1,10 +1,11 @@
 const http = require('http');
+const path = require('path');
+const router = require('./helper/route');
 const conf = require('./config/defaultConfig');
 
 const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('contentType', 'text/plain');
-  res.end('hello world');
+  const filePath = path.join(conf.root, req.url);
+  router(req, res, filePath);
 });
 
 server.listen(conf.port, conf.hostname, () => {
